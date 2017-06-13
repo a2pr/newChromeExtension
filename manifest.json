@@ -1,0 +1,30 @@
+{
+    "manifest_version":2,
+    "name":"Memrise tracker",
+    "description":"Memrise learning word trackers",
+    "version":"1.0",
+    "options_ui":{
+        "page":"options.html",
+        "chrome_style":true,
+        "open_in_tab": true
+    },
+    
+    "content_scripts":[
+        {
+            "matches":["https://www.memrise.com/home/"],
+            "js":["scripts/popup.js",
+            "scripts/options.js"],
+            "css":["style.css"]
+        }
+    ],
+    "icons":{"16":"images/icon16.png",
+            "48":"images/icon48.png",
+            "128":"images/icon128.png"},
+    "permissions":[
+        "storage"
+        ],
+    "browser_action":{
+        "default_icon":"images/icon16.png",
+        "default_popup":"popup.html"
+    }
+}

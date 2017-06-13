@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="scripts/popup.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Memrise tracker</h1>
+        <a href="#" id="options">
+            <img src="images/config.png" alt="config">
+        </a>
+        <h3> goal of the week</h3>
+        <table>
+            <thead>
+                <th>JapV</th>
+                <th>JapK</th>
+                <th>JapR</th>
+                <th>PorV</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th id="week-goal"></th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Current track</h3>
+        <table>
+            <thead>
+                <th>JapV</th>
+                <th>JapK</th>
+                <th>JapR</th>
+                <th>PorV</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th id="current-track"></th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
+        <label for=""></label><br>
+        <label for="">Entry track</label>
+        <input type="text" id="track">
+        <button type="submit" id="tracking">Keep track</button>
+        <button type="sumit" id="reset">Reset track</button>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+body{
+    width: 300px;
+    height: auto;
+}
+table{
+    border-collapse: collapse;
+}
+table, thead,th {
+    width: 80%;
+    height: auto;
+    border: 2px solid black;
+}
+th{
+    width: 25%;
+}
