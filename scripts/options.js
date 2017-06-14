@@ -1,6 +1,10 @@
 var updateGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
         if (!chrome.runtime.error) {
+            for (var i = 0; i < 4; i++) {
+              document.getElementById("")//no terminado
+
+    }
             document.getElementById("optionsGoal").innerText = items.goal;
         }
     });
