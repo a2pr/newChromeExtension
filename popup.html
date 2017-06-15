@@ -7,7 +7,7 @@
     <script src="scripts/additional.js"></script>
 </head>
 
-<body>
+<body id="popupBody">
     <h1>Memrise tracker</h1>
     <a href="#" id="options">
             <img src="images/config.png" alt="config">
@@ -54,8 +54,10 @@
         <button type="submit" id="JapRCategory">JapR</button>
         <button type="submit" id="PortVCategory">PortV</button><br><br>
     </div>
-    <label for="" id="categoryMarked"></label>
-    <label for="" id="categorySelected"></label><br><br>
+    <div id="categorySelection">
+            <label for="" id="categoryMarked"></label>
+            <label for="" id="categorySelected"></label><br><br>         
+    </div>
     <label for="">Entry track</label>
     <input type="text" id="track">
     <button type="submit" id="tracking">Keep track</button>

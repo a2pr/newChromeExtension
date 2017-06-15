@@ -1,3 +1,9 @@
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details== "install") {
+        chrome.storage.sync.set({"track":[0,1,2,3]}, function(){});
+        chrome.storage.sync.set({"goal":[0,1,2,3]}, function(){});
+    };
+})
 var updateTrack = function () {
     chrome.storage.sync.get("track", function (items) {
         if (!chrome.runtime.error) {
@@ -48,47 +54,117 @@ var categoryClick = function (param) {
     var d = param.innerText;
     document.getElementById("categoryMarked").innerText = "Category selected:" + "\n";
     document.getElementById("categorySelected").innerText = d;
-    
+
 };
-var removeAll =  function (param) {
-        while (first_child(param)) {
-            param.removeChild(first_child(param));
-        }
-    };
-var goBackEntry= function (param) {
-    var f= document.createElement("button");
-    f.innerHTML="Select another category";
-    f.id="CategoryGoback";
-    f.setAttribute("type","submit");
-    f.addEventListener("click",removeAll);
+var removeAll = function (param) {
+    while (first_child(param)) { //elimina elementos de contenedor
+        param.removeChild(first_child(param));
+    }
+};
+var removeCatSelec= function (params) {
+    var d=document.getElementById("categorySelection").children;
+    for (var i = 0; i < 2; i++) {
+        d[i].innerText="";
+    }
+}
+var goBackEntry = function (param) { //agrega opcion de go back
+    var f = document.createElement("button");
+    f.innerHTML = "Select another category";
+    f.id = "CategoryGoback";
+    f.setAttribute("type", "submit");
+    f.addEventListener("click",function () {
+       removeAll(this.parentElement);
+       removeCatSelec(this);
+       addCategories(param);
+    });
     param.appendChild(f);
 };
+var addCategories= function (param) {
+    for (var i = 0; i < 9 ; i++) {
+        var d;
+        if (i==0) {
+            d= document.createElement("label");
+            d.innerText="Set track category:";
+        }
+        else if(i==1 || i==4 || i>6){
+            d=document.createElement("br");
+        }
+        else {
+            if(i==2||i==3|| i>4 && i<7){}
+            d=document.createElement("button");
+                d.setAttribute("type","submit");
+                switch (i) {
+                    case 2:
+                        d.id="JapVCategory";
+                        d.innerText="JapV";
+                        d.addEventListener("click", function () {
+                            categoryClick(this);
+                            var b = param;
+                            removeAll(param);
+                            goBackEntry(b);
+                        });
+                        break;
+                    case 3:
+                        d.id="JapKCategory";
+                        d.innerText="JapK";
+                         d.addEventListener("click", function () {
+                            categoryClick(this);
+                            var b = param;
+                            removeAll(param);
+                            goBackEntry(b);
+                        });
+                        break;
+                    case 5:
+                        d.id="JapRCategory";
+                        d.innerText="JapR";
+                         d.addEventListener("click", function () {
+                            categoryClick(this);
+                            var b = param;
+                            removeAll(param);
+                            goBackEntry(b);
+                        });
+                        break;
+                    case 6:
+                        d.id="PortVCategory";
+                        d.innerText="PortV";
+                         d.addEventListener("click", function () {
+                            categoryClick(this);
+                            var b = param;
+                            removeAll(param);
+                            goBackEntry(b);
+                        });
+                        break;
+                };
+        }
+        param.appendChild(d);
+    }
+}
 window.onload = function () {
 
     updateGoal();
     updateTrack();
- 
+
     document.getElementById("JapVCategory").onclick = function () {
         categoryClick(this);
-        var b=this.parentElement;
+        var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
     };
     document.getElementById("JapKCategory").onclick = function () {
         categoryClick(this);
-        var b=this.parentElement;
+        var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
     };
     document.getElementById("JapRCategory").onclick = function () {
         categoryClick(this);
-        var b=this.parentElement;
+        var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
     };
     document.getElementById("PortVCategory").onclick = function () {
         categoryClick(this);
-        var b=this.parentElement;
+        var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
     }; //seleccion de categoria
@@ -126,8 +202,8 @@ window.onload = function () {
     }
     document.getElementById("reset").onclick = function () {
         reset();
-    }
+    };
     document.getElementById("options").onclick = function () {
         chrome.runtime.openOptionsPage();
-    }
+    };
 }

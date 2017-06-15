@@ -11,7 +11,7 @@
     
     "content_scripts":[
         {
-            "matches":["https://www.memrise.com/home/"],
+            "matches":["https://www.memrise.com/"],
             "js":["scripts/popup.js",
             "scripts/options.js"],
             "css":["style.css"]
