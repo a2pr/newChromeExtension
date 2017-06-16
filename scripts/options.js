@@ -1,4 +1,4 @@
-var updateGoal = function () {
+/*var updateGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
         if (!chrome.runtime.error) {
             for (var i = 0; i < 4; i++) {
@@ -6,12 +6,12 @@ var updateGoal = function () {
 
     }
             document.getElementById("optionsGoal").innerText = items.goal;
-        }
+        };
     });
-}
+}*/ //on hold
 var reset = function () { //borra datos de data
     chrome.storage.sync.set({
-        "goal": 0
+        "goal": [0,0,0,0]
     });
     updateGoal();
 };
