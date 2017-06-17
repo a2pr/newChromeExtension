@@ -1,17 +1,32 @@
-/*var updateGoal = function () {
+var updateOptionGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
         if (!chrome.runtime.error) {
-            for (var i = 0; i < 4; i++) {
-              document.getElementById("")//no terminado
-
-    }
-            document.getElementById("optionsGoal").innerText = items.goal;
+                var j= document.getElementById("optionGoalTable").rows[0].cells[0]; //no terminado
+                console.log(j);
+                switch (j.id) {
+                    case "JapVGoal":
+                        j.innerText= items.goal[0];
+                        break;
+                    case "JapKGoal":
+                        j.innerText= items.goal[1];
+                        break;
+                    case "JapRGoal":
+                        j.innerText= items.goal[2];
+                        break;
+                    case "PortVGoal":
+                        j.innerText= items.goal[3];
+                        break;
+                
+                    default:
+                        break;
+                };//algo esta pasando XDD
+            
         };
     });
-}*/ //on hold
+} //on hold
 var reset = function () { //borra datos de data
     chrome.storage.sync.set({
-        "goal": [0,0,0,0]
+        "goal": [0, 0, 0, 0]
     });
     updateGoal();
 };
