@@ -66,8 +66,8 @@ var addContent = function (param, opt) { // creacion de tabla para datos
     };
 };
 window.onload = function () {
-    var buttons = [document.getElementById('japonesKanjiGoal'),
-        document.getElementById('japonesVocaGoal'),
+    var buttons = [document.getElementById('japonesVocaGoal'),
+        document.getElementById('japonesKanjiGoal'),
         document.getElementById('japonesRepaGoal'),
         document.getElementById('portuguesVocalGoal')
     ];

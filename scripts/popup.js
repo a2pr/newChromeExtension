@@ -187,7 +187,6 @@ window.onload = function () {
                 });
             } else {
                 var num2 = (+items.track[i]) + (+num);
-                catSelected();
                 arrayChanging.splice(i, 1, num2);
                 chrome.storage.sync.set({
                     "track": arrayChanging
