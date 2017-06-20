@@ -66,12 +66,15 @@ var addContent = function (param, opt) { // creacion de tabla para datos
     };
 };
 window.onload = function () {
+    //agrupacion de botones 
     var buttons = [document.getElementById('japonesVocaGoal'),
         document.getElementById('japonesKanjiGoal'),
         document.getElementById('japonesRepaGoal'),
         document.getElementById('portuguesVocalGoal')
     ];
+    //seleccion de div de transformacion
     var buttonH = document.getElementById("buttonHolder");
+    //transformaciones de botones
     buttons[0].onclick = function () {
         remove(buttonH);
         addContent(buttonH, 0);
