@@ -13,7 +13,8 @@
         {
             "matches":["https://www.memrise.com/"],
             "js":["scripts/popup.js",
-            "scripts/options.js"],
+            "scripts/options.js",
+            "scripts/dates.js"],
             "css":["style.css"]
         }
     ],

@@ -8,8 +8,18 @@
         }, function () {});
     };
 })*/
+var checkingDates= function () {
+    chrome.storage.sync.get("storeDates", function (items) {
+       if (!items.storeDates) {
+           chrome.storage.sync.set({"storeDates":  datesRequested()});
+       };
+    });
+}
 var updateTrack = function () {
     chrome.storage.sync.get("track", function (items) {
+        if (!items.track) {
+            chrome.storage.sync.set({"track":  [0,0,0,0]});
+        };
         if (!chrome.runtime.error) {
             console.log(items.track);
             for (var i = 0; i < 4; i++) {
@@ -21,6 +31,9 @@ var updateTrack = function () {
 
 var updateGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
+        if (!items.goal) {
+            chrome.storage.sync.set({"goal":  [0,0,0,0]});
+        };
         if (!chrome.runtime.error) {
             console.log(items.goal);
             for (var i = 0; i < 4; i++) {
@@ -145,6 +158,7 @@ window.onload = function () {
     //Recarga de datos goal  track actuales
     updateGoal();
     updateTrack();
+    checkingDates();
     //Seleccion de categoria
     document.getElementById("JapVCategory").onclick = function () {
         categoryClick(this);
