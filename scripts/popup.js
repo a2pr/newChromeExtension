@@ -1,27 +1,29 @@
-/*chrome.runtime.onInstalled.addListener(function (details) {
-    if (details == "install") {
-        chrome.storage.sync.set({
-            "track": [0, 1, 2, 3]
-        }, function () {});
-        chrome.storage.sync.set({
-            "goal": [0, 1, 2, 3]
-        }, function () {});
-    };
-})*/
-var checkingDates= function () {
+var checkingDates = function () { //tomando valores de date.js 
     chrome.storage.sync.get("storeDates", function (items) {
-       if (!items.storeDates) {
-           chrome.storage.sync.set({"storeDates":  datesRequested()});
-       };
+        if (!items.storeDates) {
+            chrome.storage.sync.set({
+                "storeDates": datesRequested()
+            });
+        };
+        if (!chrome.runtime.error) {
+            console.log(items.storeDates);
+            for (var i = 0; i < 7; i++) {
+                var a = items.storeDates[i].date;
+                var b = items.storeDates[i].month;
+                var c = items.storeDates[i].year;
+                document.getElementById("weekTrackTable").rows[1].cells[i].innerText = a + "/" + b + "/" + c;
+            }
+        }
     });
-}
+};
 var updateTrack = function () {
     chrome.storage.sync.get("track", function (items) {
         if (!items.track) {
-            chrome.storage.sync.set({"track":  [0,0,0,0]});
+            chrome.storage.sync.set({
+                "track": [0, 0, 0, 0]
+            });
         };
         if (!chrome.runtime.error) {
-            console.log(items.track);
             for (var i = 0; i < 4; i++) {
                 document.getElementById("tableTrack").rows[1].cells[i].innerText = items.track[i];
             };
@@ -32,7 +34,9 @@ var updateTrack = function () {
 var updateGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
         if (!items.goal) {
-            chrome.storage.sync.set({"goal":  [0,0,0,0]});
+            chrome.storage.sync.set({
+                "goal": [0, 0, 0, 0]
+            });
         };
         if (!chrome.runtime.error) {
             console.log(items.goal);
@@ -165,7 +169,7 @@ window.onload = function () {
         var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
-    }; 
+    };
     document.getElementById("JapKCategory").onclick = function () {
         categoryClick(this);
         var b = this.parentElement;
@@ -183,7 +187,7 @@ window.onload = function () {
         var b = this.parentElement;
         removeAll(this.parentElement);
         goBackEntry(b);
-    }; 
+    };
     //Ingresar nuevo track
     document.getElementById("tracking").onclick = function () {
         var cat = document.getElementById("categorySelected").innerText;

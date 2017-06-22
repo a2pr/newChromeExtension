@@ -1,5 +1,5 @@
 #popupBody{
-    width: 300px;
+    width: 450px;
     height: auto;
 }
 table{
@@ -12,4 +12,7 @@ table, thead,th {
 }
 th{
     width: 25%;
+}
+#weekTrackTable{
+    font-size: 12px;
 }
