@@ -81,3 +81,16 @@ function datesRequested() {
     };
     return arrayDates
 };
+
+function comparingDates(fn) {
+    var currentDate = new Date();
+    var j;
+    chrome.storage.sync.get("storeDates", function comparing(items) {
+        if (!chrome.runtime.error) {
+            var arrayDates = items.storeDates;
+            var j = arrayDates.findIndex(x => x.date == currentDate.getDate());
+            console.log(j);
+            fn(j);
+        };
+    });
+};

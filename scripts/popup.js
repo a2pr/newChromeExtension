@@ -6,12 +6,11 @@ var checkingDates = function () { //tomando valores de date.js
             });
         };
         if (!chrome.runtime.error) {
-            console.log(items.storeDates);
-            for (var i = 0; i < 7; i++) {
-                var a = items.storeDates[i].date;
-                var b = items.storeDates[i].month;
-                var c = items.storeDates[i].year;
-                document.getElementById("weekTrackTable").rows[1].cells[i].innerText = a + "/" + b + "/" + c;
+            for (var i = 1; i < 8; i++) {
+                var a = items.storeDates[i - 1].date;
+                var b = items.storeDates[i - 1].month;
+                var c = items.storeDates[i - 1].year;
+                document.getElementById("weekTrackTable").rows[0].cells[i].innerText = a + "/" + b + "/" + c;
             }
         }
     });
@@ -30,7 +29,46 @@ var updateTrack = function () {
         };
     });
 };
-
+var updateWeeklyTrack = function () {
+    chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
+        "trackWeekPortV"
+    ], function (items) {
+        if (!items.trackWeekJapV && !items.trackWeekJapK && !items.trackWeekJapR && !items.trackWeekPortV) {
+            chrome.storage.sync.set({
+                "trackWeekJapV": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekJapK": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekJapR": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekPortV": [0, 0, 0, 0, 0, 0, 0]
+            });
+        };
+        if (!chrome.runtime.error) {
+            for (var j = 1; j < 5; j++) { //seleccionando fila
+                switch (j) {
+                    case 1:
+                        for (var i = 1; i < 8; i++) {
+                            document.getElementById("weekTrackTable").rows[j].cells[i].innerText = items.trackWeekJapV[i - 1];
+                        };
+                        break;
+                    case 2:
+                        for (var i = 1; i < 8; i++) {
+                            document.getElementById("weekTrackTable").rows[j].cells[i].innerText = items.trackWeekJapK[i - 1];
+                        };
+                        break;
+                    case 3:
+                        for (var i = 1; i < 8; i++) {
+                            document.getElementById("weekTrackTable").rows[j].cells[i].innerText = items.trackWeekJapR[i - 1];
+                        };
+                        break;
+                    case 4:
+                        for (var i = 1; i < 8; i++) {
+                            document.getElementById("weekTrackTable").rows[j].cells[i].innerText = items.trackWeekPortV[i - 1];
+                        };
+                        break;
+                }
+            };
+        };
+    });
+};
 var updateGoal = function () {
     chrome.storage.sync.get("goal", function (items) {
         if (!items.goal) {
@@ -157,12 +195,201 @@ var addCategories = function (param) {
         }
         param.appendChild(d);
     }
-}
+};
+var submit = function (newValue, cat) {
+    var currentDay;
+    comparingDates(function (l1) {
+        if (!l1) {
+            console.log("error");
+        } else {
+            currentDay = l1;
+            console.log("succes");
+        };
+
+    });
+    switch (cat) {
+        case 0:
+            chrome.storage.sync.get(["track", "trackWeekJapV"], function (items) {
+                var arrayChangingDaily = items.track;
+                var arrayChangingWeekly = items.trackWeekJapV;
+                if (items.track[cat] == "0") { //daily
+                    arrayChangingDaily.splice(cat, 1, newValue);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapV[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapV": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapV[currentDay]) {
+                        var num1 = (+items.trackWeekJapV[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapV": arrayChangingWeekly
+                        }); //
+                    };
+                } else { //daily
+                    var num2 = (+items.track[cat]) + (+newValue);
+                    arrayChangingDaily.splice(cat, 1, num2);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapV[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapV": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapV[currentDay]) {
+                        var num1 = (+items.trackWeekJapV[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapV": arrayChangingWeekly
+                        });
+                    };
+                };
+
+            });
+            break;
+        case 1:
+            chrome.storage.sync.get(["track", "trackWeekJapK"], function (items) {
+                var arrayChangingDaily = items.track;
+                var arrayChangingWeekly = items.trackWeekJapK;
+                if (items.track[cat] == "0") { //daily
+                    arrayChangingDaily.splice(cat, 1, newValue);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapK[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapK": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapK[currentDay]) {
+                        var num1 = (+items.trackWeekJapK[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapK": arrayChangingWeekly
+                        }); //
+                    };
+                } else { //daily
+                    var num2 = (+items.track[cat]) + (+newValue);
+                    arrayChangingDaily.splice(cat, 1, num2);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapK[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapK": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapK[currentDay]) {
+                        var num1 = (+items.trackWeekJapK[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapK": arrayChangingWeekly
+                        });
+                    };
+                };
+
+            });
+            break;
+        case 2:
+            chrome.storage.sync.get(["track", "trackWeekJapR"], function (items) {
+                var arrayChangingDaily = items.track;
+                var arrayChangingWeekly = items.trackWeekJapR;
+                if (items.track[cat] == "0") { //daily
+                    arrayChangingDaily.splice(cat, 1, newValue);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapR[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapR": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapR[currentDay]) {
+                        var num1 = (+items.trackWeekJapR[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapR": arrayChangingWeekly
+                        }); //
+                    };
+                } else { //daily
+                    var num2 = (+items.track[cat]) + (+newValue);
+                    arrayChangingDaily.splice(cat, 1, num2);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekJapR[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekJapR": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekJapR[currentDay]) {
+                        var num1 = (+items.trackWeekJapR[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekJapR": arrayChangingWeekly
+                        });
+                    };
+                };
+
+            });
+            break;
+        case 3:
+            chrome.storage.sync.get(["track", "trackWeekPortV"], function (items) {
+                var arrayChangingDaily = items.track;
+                var arrayChangingWeekly = items.trackWeekPortV;
+                if (items.track[cat] == "0") { //daily
+                    arrayChangingDaily.splice(cat, 1, newValue);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekPortV[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekPortV": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekPortV[currentDay]) {
+                        var num1 = (+items.trackWeekPortV[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekPortV": arrayChangingWeekly
+                        }); //
+                    };
+                } else { //daily
+                    var num2 = (+items.track[cat]) + (+newValue);
+                    arrayChangingDaily.splice(cat, 1, num2);
+                    chrome.storage.sync.set({
+                        "track": arrayChangingDaily
+                    });
+                    if (items.trackWeekPortV[currentDay] == "0") { //weekly
+                        arrayChangingWeekly.splice(currentDay, 1, newValue);
+                        chrome.storage.sync.set({
+                            "trackWeekPortV": arrayChangingWeekly
+                        });
+                    } else if (items.trackWeekPortV[currentDay]) {
+                        var num1 = (+items.trackWeekPortV[currentDay]) + (+newValue);
+                        arrayChangingWeekly.splice(currentDay, 1, num1);
+                        chrome.storage.sync.set({
+                            "trackWeekPortV": arrayChangingWeekly
+                        });
+                    };
+                };
+
+            });
+            break;
+    };
+    updateTrack();
+    updateWeeklyTrack();
+};
 window.onload = function () {
-    //Recarga de datos goal  track actuales
+    //Recarga de datos goal, TrackWeek, track actuales
     updateGoal();
     updateTrack();
     checkingDates();
+    updateWeeklyTrack();
     //Seleccion de categoria
     document.getElementById("JapVCategory").onclick = function () {
         categoryClick(this);
@@ -194,31 +421,7 @@ window.onload = function () {
         catSelected(cat);
         var num = document.getElementById("track").value; //obtiene valor de input
         clearInput(0); //borra valor de input
-        chrome.storage.sync.get("track", function (items) {
-            var arrayChanging = items.track;
-            if (items.track == "0") {
-                arrayChanging.splice(i, 1, num);
-                chrome.storage.sync.set({
-                    "track": arrayChanging
-                }, function () {
-                    if (chrome.runtime.error) {
-                        console.log("error");
-                    }
-                    updateTrack();
-                });
-            } else {
-                var num2 = (+items.track[i]) + (+num);
-                arrayChanging.splice(i, 1, num2);
-                chrome.storage.sync.set({
-                    "track": arrayChanging
-                }, function () {
-                    if (chrome.runtime.error) {
-                        console.log("error");
-                    }
-                    updateTrack();
-                });
-            }
-        });
+        submit(num, i);
     };
     //resetear datos de track
     document.getElementById("reset").onclick = function () {
@@ -228,4 +431,4 @@ window.onload = function () {
     document.getElementById("options").onclick = function () {
         chrome.runtime.openOptionsPage();
     };
-}
+};
