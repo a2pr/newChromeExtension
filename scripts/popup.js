@@ -387,6 +387,7 @@ var submit = function (newValue, cat) {
 window.onload = function () {
     //Recarga de datos goal, TrackWeek, track actuales
     updateGoal();
+    datesUpdate();
     updateTrack();
     checkingDates();
     updateWeeklyTrack();
