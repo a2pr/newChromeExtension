@@ -105,6 +105,16 @@ function datesUpdate() {
             chrome.storage.sync.set({
                 "storeDates":datesRequested()
             });
+            chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
+        "trackWeekPortV"
+    ], function (items) {
+        chrome.storage.sync.set({
+                "trackWeekJapV": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekJapK": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekJapR": [0, 0, 0, 0, 0, 0, 0],
+                "trackWeekPortV": [0, 0, 0, 0, 0, 0, 0]
+            });
+    });
         }
     });
 };
