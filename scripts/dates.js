@@ -98,23 +98,54 @@ function datesUpdate() {
     var d = x.getDate();
     var Y = x.getFullYear();
     var m = x.getMonth();
-    chrome.storage.sync.get("storeDates", function (items) {
-        var y = items.storeDates[0].date;
-        var m2=items.storeDates[0].month;
-        if (y+7== d && m==m2) {
-            chrome.storage.sync.set({
-                "storeDates":datesRequested()
-            });
-            chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
-        "trackWeekPortV"
-    ], function (items) {
+
+    function dateChange() {
         chrome.storage.sync.set({
+            "storeDates": datesRequested()
+        });
+        chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
+            "trackWeekPortV"
+        ], function (items) {
+            chrome.storage.sync.set({
                 "trackWeekJapV": [0, 0, 0, 0, 0, 0, 0],
                 "trackWeekJapK": [0, 0, 0, 0, 0, 0, 0],
                 "trackWeekJapR": [0, 0, 0, 0, 0, 0, 0],
                 "trackWeekPortV": [0, 0, 0, 0, 0, 0, 0]
             });
-    });
+        });
+    };
+
+    chrome.storage.sync.get("storeDates", function (items) {
+        var y = items.storeDates[0].date;
+        var y2 = items.storeDates[6].date;
+        var m2 = items.storeDates[0].month;
+        var m3 = items.storeDates[6].month;
+        if (m2 == m & m == m3) {
+            if (y < d < y2) {
+                console.log("in between");
+            } else if (d < y) {
+                dateChange();
+            } else {
+                dateChange();
+            };
+        } else if (m2 == m | m == m3) {
+            if (m3 != m) {
+                if (y < d) {
+                    console.log("in between");
+                } else if (y == d) {
+                    console.log("in the left border");
+                } else {
+                    dateChange();
+                }
+            } else if (m2 != m) {
+                if (d < y2) {
+                    console.log("in between");
+                } else if (d == y2) {
+                    console.log("in the right border");
+                } else {
+                    dateChange();
+                }
+            }
         }
     });
 };
@@ -125,9 +156,13 @@ function comparingDates(fn) {
     chrome.storage.sync.get("storeDates", function comparing(items) {
         if (!chrome.runtime.error) {
             var arrayDates = items.storeDates;
-            var j = arrayDates.findIndex(x => x.date == currentDate.getDate());
+            j = arrayDates.findIndex(x => x.date == currentDate.getDate());
             console.log(j);
             fn(j);
         };
     });
 };
+
+function name(params) {
+
+}

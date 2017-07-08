@@ -381,8 +381,6 @@ var submit = function (newValue, cat) {
             });
             break;
     };
-    updateTrack();
-    updateWeeklyTrack();
 };
 window.onload = function () {
     //Recarga de datos goal, TrackWeek, track actuales
@@ -423,6 +421,9 @@ window.onload = function () {
         var num = document.getElementById("track").value; //obtiene valor de input
         clearInput(0); //borra valor de input
         submit(num, i);
+        updateTrack();
+        updateWeeklyTrack();
+
     };
     //resetear datos de track
     document.getElementById("reset").onclick = function () {
