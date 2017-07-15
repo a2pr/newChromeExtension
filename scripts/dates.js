@@ -97,7 +97,7 @@ function datesUpdate() {
     var x = new Date();
     var d = x.getDate();
     var Y = x.getFullYear();
-    var m = x.getMonth();
+    var m = x.getMonth()+1;
 
     function dateChange() {
         chrome.storage.sync.set({
@@ -121,13 +121,17 @@ function datesUpdate() {
         var m2 = items.storeDates[0].month;
         var m3 = items.storeDates[6].month;
         if (m2 == m & m == m3) {
-            if (y < d < y2) {
+            if (y < d && d < y2) {
                 console.log("in between");
-            } else if (d < y) {
+            }
+            else if (d < y) {
+                console.log("behind");
                 dateChange();
-            } else {
+            }
+            else if (y2 < d) {
+                console.log("infront");
                 dateChange();
-            };
+            }
         } else if (m2 == m | m == m3) {
             if (m3 != m) {
                 if (y < d) {

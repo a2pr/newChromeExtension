@@ -66,6 +66,7 @@ var updateWeeklyTrack = function () {
                         break;
                 }
             };
+        
         };
     });
 };
@@ -382,6 +383,31 @@ var submit = function (newValue, cat) {
             break;
     };
 };
+var checkGoal= function () {
+    chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
+        "trackWeekPortV", "goal"], function (items) {
+           var sumTrack=[0,0,0,0,];
+            for (var i = 0; i< items.trackWeekJapV.length; i++) {
+                var a=parseInt(items.trackWeekJapV[i])
+                sumTrack[0]+=a;  
+            };
+            for (var i = 0; i< items.trackWeekJapK.length; i++) {
+                var a=parseInt(items.trackWeekJapK[i])
+                sumTrack[1]+=a;  
+            };
+            for (var i = 0; i< items.trackWeekJapR.length; i++) {
+                var a=parseInt(items.trackWeekJapR[i])
+                sumTrack[2]+=a;  
+            };
+            for (var i = 0; i< items.trackWeekPortV.length; i++) {
+                var a=parseInt(items.trackWeekPortV[i])
+                sumTrack[3]+=a;  
+            };
+            if (items.goal[3]<=sumTrack[3]) {
+                console.log("congrats");
+            }
+        });
+}
 window.onload = function () {
     //Recarga de datos goal, TrackWeek, track actuales
     updateGoal();
