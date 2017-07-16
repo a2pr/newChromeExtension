@@ -14,7 +14,8 @@
             "matches":["https://www.memrise.com/"],
             "js":["scripts/popup.js",
             "scripts/options.js",
-            "scripts/dates.js"],
+            "scripts/dates.js",
+        "scripts/notification.js"],
             "css":["style.css"]
         }
     ],
@@ -28,5 +29,6 @@
     "browser_action":{
         "default_icon":"images/icon16.png",
         "default_popup":"popup.html"
-    }
+    },
+    "web_accesible_resources":["images/icon48.png"]
 }

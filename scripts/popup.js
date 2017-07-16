@@ -8,7 +8,7 @@ var checkingDates = function () { //tomando valores de date.js
         if (!chrome.runtime.error) {
             for (var i = 1; i < 8; i++) {
                 var a = items.storeDates[i - 1].date;
-                var b = items.storeDates[i - 1].month;
+                var b = items.storeDates[i - 1].month+1;
                 var c = items.storeDates[i - 1].year;
                 document.getElementById("weekTrackTable").rows[0].cells[i].innerText = a + "/" + b + "/" + c;
             }
@@ -382,31 +382,9 @@ var submit = function (newValue, cat) {
             });
             break;
     };
-};
-var checkGoal= function () {
-    chrome.storage.sync.get(["trackWeekJapV", "trackWeekJapK", "trackWeekJapR",
-        "trackWeekPortV", "goal"], function (items) {
-           var sumTrack=[0,0,0,0,];
-            for (var i = 0; i< items.trackWeekJapV.length; i++) {
-                var a=parseInt(items.trackWeekJapV[i])
-                sumTrack[0]+=a;  
-            };
-            for (var i = 0; i< items.trackWeekJapK.length; i++) {
-                var a=parseInt(items.trackWeekJapK[i])
-                sumTrack[1]+=a;  
-            };
-            for (var i = 0; i< items.trackWeekJapR.length; i++) {
-                var a=parseInt(items.trackWeekJapR[i])
-                sumTrack[2]+=a;  
-            };
-            for (var i = 0; i< items.trackWeekPortV.length; i++) {
-                var a=parseInt(items.trackWeekPortV[i])
-                sumTrack[3]+=a;  
-            };
-            if (items.goal[3]<=sumTrack[3]) {
-                console.log("congrats");
-            }
-        });
+    updateTrack();
+    updateWeeklyTrack();
+    checkGoal();
 }
 window.onload = function () {
     //Recarga de datos goal, TrackWeek, track actuales
@@ -449,8 +427,7 @@ window.onload = function () {
         submit(num, i);
         updateTrack();
         updateWeeklyTrack();
-
-    };
+    }
     //resetear datos de track
     document.getElementById("reset").onclick = function () {
         reset();

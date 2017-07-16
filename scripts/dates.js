@@ -97,7 +97,7 @@ function datesUpdate() {
     var x = new Date();
     var d = x.getDate();
     var Y = x.getFullYear();
-    var m = x.getMonth()+1;
+    var m = x.getMonth();
 
     function dateChange() {
         chrome.storage.sync.set({
@@ -127,11 +127,17 @@ function datesUpdate() {
             else if (d < y) {
                 console.log("behind");
                 dateChange();
+            } else if (d==y) {
+                console.log("in the left border");
+            }
+            else if (d==y2) {
+                 console.log("in the right border");
             }
             else if (y2 < d) {
                 console.log("infront");
                 dateChange();
             }
+            
         } else if (m2 == m | m == m3) {
             if (m3 != m) {
                 if (y < d) {
