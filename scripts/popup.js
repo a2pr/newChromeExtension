@@ -8,7 +8,7 @@ var checkingDates = function () { //tomando valores de date.js
         if (!chrome.runtime.error) {
             for (var i = 1; i < 8; i++) {
                 var a = items.storeDates[i - 1].date;
-                var b = items.storeDates[i - 1].month+1;
+                var b = items.storeDates[i - 1].month + 1;
                 var c = items.storeDates[i - 1].year;
                 document.getElementById("weekTrackTable").rows[0].cells[i].innerText = a + "/" + b + "/" + c;
             }
@@ -66,7 +66,7 @@ var updateWeeklyTrack = function () {
                         break;
                 }
             };
-        
+
         };
     });
 };
@@ -223,12 +223,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapV[currentDay]) {
                         var num1 = (+items.trackWeekJapV[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapV": arrayChangingWeekly
-                        }); //
+                        });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 } else { //daily
                     var num2 = (+items.track[cat]) + (+newValue);
@@ -241,12 +247,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapV[currentDay]) {
                         var num1 = (+items.trackWeekJapV[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 };
 
@@ -266,12 +278,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapK": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapK[currentDay]) {
                         var num1 = (+items.trackWeekJapK[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapK": arrayChangingWeekly
-                        }); //
+                        });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 } else { //daily
                     var num2 = (+items.track[cat]) + (+newValue);
@@ -284,12 +302,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapK": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapK[currentDay]) {
                         var num1 = (+items.trackWeekJapK[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapK": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 };
 
@@ -309,12 +333,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapR": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapR[currentDay]) {
                         var num1 = (+items.trackWeekJapR[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapR": arrayChangingWeekly
-                        }); //
+                        });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal(); //
                     };
                 } else { //daily
                     var num2 = (+items.track[cat]) + (+newValue);
@@ -327,12 +357,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekJapR": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekJapR[currentDay]) {
                         var num1 = (+items.trackWeekJapR[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekJapR": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 };
 
@@ -352,12 +388,18 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekPortV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekPortV[currentDay]) {
                         var num1 = (+items.trackWeekPortV[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekPortV": arrayChangingWeekly
                         }); //
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 } else { //daily
                     var num2 = (+items.track[cat]) + (+newValue);
@@ -370,21 +412,25 @@ var submit = function (newValue, cat) {
                         chrome.storage.sync.set({
                             "trackWeekPortV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     } else if (items.trackWeekPortV[currentDay]) {
                         var num1 = (+items.trackWeekPortV[currentDay]) + (+newValue);
                         arrayChangingWeekly.splice(currentDay, 1, num1);
                         chrome.storage.sync.set({
                             "trackWeekPortV": arrayChangingWeekly
                         });
+                        updateTrack();
+                        updateWeeklyTrack();
+                        checkGoal();
                     };
                 };
 
             });
             break;
     };
-    updateTrack();
-    updateWeeklyTrack();
-    checkGoal();
+
 }
 window.onload = function () {
     //Recarga de datos goal, TrackWeek, track actuales

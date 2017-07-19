@@ -3,9 +3,28 @@ var remove = function (param) {
         param.removeChild(param.firstChild);
     }
 };
-var addContent = function (param, opt) { // creacion de tabla para datos 
+var addContent = function (param, opt) {
+    //creacion de titulo
+    var b = document.createElement("h1");
+    b.id = "optionGoalTitle";
+    switch (opt) {
+        case 0:
+            b.innerText = "Japanese Vocab Goal";
+            break;
+        case 1:
+            b.innerText = "Japanese Kanji Goal";
+            break;
+        case 2:
+            b.innerText = "Japanese Review Goal";
+            break;
+        case 3:
+            b.innerText = "Portuguese Vocab Goal";
+            break;
+    };
+    param.appendChild(b);
+    // creacion de tabla para datos 
     var f = document.createElement("table");
-    f.id="optionGoalTable";
+    f.id = "optionGoalTable";
     var h = document.createElement("thead");
     var k = document.createElement("th");
     k.innerText = "Current goal"
@@ -14,20 +33,20 @@ var addContent = function (param, opt) { // creacion de tabla para datos
     var r = document.createElement("tbody");
     var l = document.createElement("tr");
     var j = document.createElement("th");
-        switch (opt) {
-            case 0:
-                j.id = "JapVGoal";
-                break;
-            case 1:
-                j.id = "JapKGoal";
-                break;
-            case 2:
-                j.id = "JapRGoal";
-                break;
-            case 3:
-                j.id = "PortVGoal";
-                break;
-        };
+    switch (opt) {
+        case 0:
+            j.id = "JapVGoal";
+            break;
+        case 1:
+            j.id = "JapKGoal";
+            break;
+        case 2:
+            j.id = "JapRGoal";
+            break;
+        case 3:
+            j.id = "PortVGoal";
+            break;
+    };
     j.innerText = "";
     l.appendChild(j);
     r.appendChild(l);
