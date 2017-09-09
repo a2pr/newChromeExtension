@@ -200,7 +200,7 @@ var addCategories = function (param) {
 var submit = function (newValue, cat) {
     var currentDay;
     comparingDates(function (l1) {
-        if (!l1) {
+        if (!l1 && l1!=0) {
             console.log("error");
         } else {
             currentDay = l1;
