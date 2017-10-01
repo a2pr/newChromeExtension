@@ -432,8 +432,25 @@ var submit = function (newValue, cat) {
     };
 
 }
+//load support
+chrome.storage.sync.get("intiation", function (items) {
+    //First load
+    if(!items.intiation){
+        chrome.storage.sync.set({
+            "intiation":1
+        });
+        var element0="<h1>Hello World</h1>";
+        var element1="<p>Welcome to memrise tracker. Time to track that learning!</p>";
+        var element2= "<button>Lets Begin</button>"
+        $("body").Append(element0,element1,element2);
+    };
+    //loading languages
+    if (items.intiation==1) {
+        $("body").append("<h1>Hello World</h1>");
+    }
+})
 window.onload = function () {
-    //Recarga de datos goal, TrackWeek, track actuales
+   /* //Recarga de datos goal, TrackWeek, track actuales
     updateGoal();
     datesUpdate();
     updateTrack();
@@ -481,5 +498,5 @@ window.onload = function () {
     // abrir pagina options
     document.getElementById("options").onclick = function () {
         chrome.runtime.openOptionsPage();
-    };
+    };*/
 };

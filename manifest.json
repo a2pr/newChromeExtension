@@ -15,7 +15,8 @@
             "js":["scripts/popup.js",
             "scripts/options.js",
             "scripts/dates.js",
-        "scripts/notification.js"],
+            "scripts/notification.js",
+            "scripts/jquery-3.2.1.js"],
             "css":["style.css"]
         }
     ],
@@ -30,5 +31,5 @@
         "default_icon":"images/icon16.png",
         "default_popup":"popup.html"
     },
-    "web_accesible_resources":["images/icon48.png"]
+    "web_accesible_resources":["images/icon48.png"] 
 }
