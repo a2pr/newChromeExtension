@@ -439,16 +439,52 @@ chrome.storage.sync.get("intiation", function (items) {
         chrome.storage.sync.set({
             "intiation":1
         });
-        var element0="<h1>Hello World</h1>";
+        //adding presentation 
+        var element0="<h1>Hello World1</h1>";
         var element1="<p>Welcome to memrise tracker. Time to track that learning!</p>";
-        var element2= "<button>Lets Begin</button>"
+        var element2= "<button id='button0'>Lets Begin</button>"
         $("body").Append(element0,element1,element2);
-    };
+        $("#button0").click(function () {
+            var element3="<h1>Choose the language you want to track</h1>";
+            var element4="<select name='language'><option value='japanese'>Japanese</option>"+
+            "<option value='english'>English</option>"+"<option value='portuguese'>Portuguese</option></select>"
+            $("body").append()
+        });
+    }
     //loading languages
     if (items.intiation==1) {
-        $("body").append("<h1>Hello World</h1>");
+        //$("body").append("<h1>Hello World2</h1>",);
+        //view for first load
+            //adding content
+        var element0="<h1>Hello World1</h1>";
+        var element1="<p>Welcome to memrise tracker. Time to track that learning!</p><br>";
+        var element2= "<button id='button0'>Lets Begin</button>"
+        $("body").append(element0,element1,element2);
+        //when button click adding language options
+        $("#button0").click(function () {
+            $("body").empty();
+            var element0="<h1>Choose the language you want to track</h1>";
+            var element1="<input type='checkbox' value='language0'>Japanese"+"<input type='checkbox' value='language1'>Portuguese"+
+            "<input type='checkbox' value='language2'>English<br>";
+            var element2="<input type='button' id='button1' value='sent'>";
+            $("body").append(element0,element1,element2);
+        });
+        //selecting languages
+        $(document).on("click","#button1",function () {
+            var txt=$(":checked");
+            var value =[];
+            for(var i=0; i<=txt.length; i++){
+                if(txt[i]){
+                    value.push(txt[i].value);
+                }
+            }
+            $("body").empty();
+            for(i=0; i<=value.length-1; i++){
+                $("body").append("<h1>"+value[i]+"</h1>");
+            }     
+        });
     }
-})
+});
 window.onload = function () {
    /* //Recarga de datos goal, TrackWeek, track actuales
     updateGoal();
