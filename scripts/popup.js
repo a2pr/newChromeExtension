@@ -200,7 +200,7 @@ var addCategories = function (param) {
 var submit = function (newValue, cat) {
     var currentDay;
     comparingDates(function (l1) {
-        if (!l1 && l1!=0) {
+        if (!l1 && l1 != 0) {
             console.log("error");
         } else {
             currentDay = l1;
@@ -435,104 +435,119 @@ var submit = function (newValue, cat) {
 //load support
 chrome.storage.sync.get("intiation", function (items) {
     //First load
-    if(!items.intiation){
-        chrome.storage.sync.set({
-            "intiation":1
-        });
+    if (!items.intiation || items.intiation == 0) {
         //adding presentation 
-        var element0="<h1>Hello World1</h1>";
-        var element1="<p>Welcome to memrise tracker. Time to track that learning!</p>";
-        var element2= "<button id='button0'>Lets Begin</button>"
-        $("body").Append(element0,element1,element2);
+        var element0 = "<h1>Hello World1</h1>";
+        var element1 = "<p>Welcome to memrise tracker. Time to track that learning!</p>";
+        var element2 = "<button id='button0'>Lets Begin</button>"
+        $("body").append(element0, element1, element2);
+        //adding languages
         $("#button0").click(function () {
-            var element3="<h1>Choose the language you want to track</h1>";
-            var element4="<select name='language'><option value='japanese'>Japanese</option>"+
-            "<option value='english'>English</option>"+"<option value='portuguese'>Portuguese</option></select>"
-            $("body").append()
-        });
-    }
-    //loading languages
-    if (items.intiation==1) {
-        //$("body").append("<h1>Hello World2</h1>",);
-        //view for first load
-            //adding content
-        var element0="<h1>Hello World1</h1>";
-        var element1="<p>Welcome to memrise tracker. Time to track that learning!</p><br>";
-        var element2= "<button id='button0'>Lets Begin</button>"
-        $("body").append(element0,element1,element2);
-        //when button click adding language options
-        $("#button0").click(function () {
+            var element0 = "<h1>Choose the language you want to track</h1>";
+            var element1 = "<input type='checkbox' value='Japanese'>Japanese" + "<input type='checkbox' value='Portuguese'>Portuguese" +
+                "<input type='checkbox' value='English'>English<br>";
+            var element2 = "<input type='button' id='button1' value='sent'>";
             $("body").empty();
-            var element0="<h1>Choose the language you want to track</h1>";
-            var element1="<input type='checkbox' value='language0'>Japanese"+"<input type='checkbox' value='language1'>Portuguese"+
-            "<input type='checkbox' value='language2'>English<br>";
-            var element2="<input type='button' id='button1' value='sent'>";
-            $("body").append(element0,element1,element2);
+            $("body").append(element0, element1, element2);
         });
         //selecting languages
-        $(document).on("click","#button1",function () {
-            var txt=$(":checked");
-            var value =[];
-            for(var i=0; i<=txt.length; i++){
-                if(txt[i]){
-                    value.push(txt[i].value);
+        $(document).on("click", "#button1", function () {
+            var txt = $(":checked");
+            if (txt.length <= 0) {
+                alert("no languages");
+            } else {
+                var value = [];
+                //saving languages and setting intiation to 1
+                for (var i = 0; i <= txt.length; i++) {
+                    if (txt[i]) {
+                        value.push(txt[i].value);
+                    }
                 }
+                $("body").empty();
+                chrome.storage.sync.set({
+                    "intiation": 1,
+                    "languages": value
+                });
+                //adding way to track languages
+                var element0 = "<br><h1>Choose how you want track the languages</h1>";
+                //checkbox input
+                var element1 ="<input type='checkbox' value='tracker0'>Basic"+"<input type='checkbox' value='tracker1'>Medium<br>";
+                //tracker description
+                var element2="<p>Basic tracker, show how many new words have you learn & how many you have "+
+                "review each day of the current week<br> and the total for the month.<br>Goal trackers, show"+
+                " the set up daily/weekly/ monthly goal you maded  for new words </p>"+ 
+                "<p>Medium tracker, show how many new words have you learn each day of the current week<br>" +
+                "and the total for the month.<br>Goal trackers, show the set up daily/weekly/monthly"+
+                " goal you maded for new words and review words </p><br>"; 
+                //adding tracking options checkbox
+                $("body").append(element0,element2);
+                chrome.storage.sync.get("languages", function (items) {
+                    for (var index = 0; index < items.languages.length; index++) {
+                        $("body").append("<h2>" + items.languages[index] + "</h2>", element1);
+                    }
+                });
             }
-            $("body").empty();
-            for(i=0; i<=value.length-1; i++){
-                $("body").append("<h1>"+value[i]+"</h1>");
-            }     
+        });
+        $("")
+    }
+    //loading languages
+    if (items.intiation == 1) {
+        chrome.storage.sync.get("languages", function (items) {
+            for (j = 0; j <= items.languages.length - 1; j++) {
+                var txt = "<h1>" + items.languages[j] + "</h1>"
+                $("body").append(txt);
+            }
         });
     }
 });
 window.onload = function () {
-   /* //Recarga de datos goal, TrackWeek, track actuales
-    updateGoal();
-    datesUpdate();
-    updateTrack();
-    checkingDates();
-    updateWeeklyTrack();
-    //Seleccion de categoria
-    document.getElementById("JapVCategory").onclick = function () {
-        categoryClick(this);
-        var b = this.parentElement;
-        removeAll(this.parentElement);
-        goBackEntry(b);
-    };
-    document.getElementById("JapKCategory").onclick = function () {
-        categoryClick(this);
-        var b = this.parentElement;
-        removeAll(this.parentElement);
-        goBackEntry(b);
-    };
-    document.getElementById("JapRCategory").onclick = function () {
-        categoryClick(this);
-        var b = this.parentElement;
-        removeAll(this.parentElement);
-        goBackEntry(b);
-    };
-    document.getElementById("PortVCategory").onclick = function () {
-        categoryClick(this);
-        var b = this.parentElement;
-        removeAll(this.parentElement);
-        goBackEntry(b);
-    };
-    //Ingresar nuevo track
-    document.getElementById("tracking").onclick = function () {
-        var cat = document.getElementById("categorySelected").innerText;
-        catSelected(cat);
-        var num = document.getElementById("track").value; //obtiene valor de input
-        clearInput(0); //borra valor de input
-        submit(num, i);
-        updateTrack();
-        updateWeeklyTrack();
-    }
-    //resetear datos de track
-    document.getElementById("reset").onclick = function () {
-        reset();
-    };
-    // abrir pagina options
-    document.getElementById("options").onclick = function () {
-        chrome.runtime.openOptionsPage();
-    };*/
+    /* //Recarga de datos goal, TrackWeek, track actuales
+     updateGoal();
+     datesUpdate();
+     updateTrack();
+     checkingDates();
+     updateWeeklyTrack();
+     //Seleccion de categoria
+     document.getElementById("JapVCategory").onclick = function () {
+         categoryClick(this);
+         var b = this.parentElement;
+         removeAll(this.parentElement);
+         goBackEntry(b);
+     };
+     document.getElementById("JapKCategory").onclick = function () {
+         categoryClick(this);
+         var b = this.parentElement;
+         removeAll(this.parentElement);
+         goBackEntry(b);
+     };
+     document.getElementById("JapRCategory").onclick = function () {
+         categoryClick(this);
+         var b = this.parentElement;
+         removeAll(this.parentElement);
+         goBackEntry(b);
+     };
+     document.getElementById("PortVCategory").onclick = function () {
+         categoryClick(this);
+         var b = this.parentElement;
+         removeAll(this.parentElement);
+         goBackEntry(b);
+     };
+     //Ingresar nuevo track
+     document.getElementById("tracking").onclick = function () {
+         var cat = document.getElementById("categorySelected").innerText;
+         catSelected(cat);
+         var num = document.getElementById("track").value; //obtiene valor de input
+         clearInput(0); //borra valor de input
+         submit(num, i);
+         updateTrack();
+         updateWeeklyTrack();
+     }
+     //resetear datos de track
+     document.getElementById("reset").onclick = function () {
+         reset();
+     };
+     // abrir pagina options
+     document.getElementById("options").onclick = function () {
+         chrome.runtime.openOptionsPage();
+     };*/
 };
